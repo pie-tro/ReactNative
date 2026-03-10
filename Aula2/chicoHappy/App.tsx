@@ -21,9 +21,10 @@ export default function App() {
   return (
     <View style={[
       styles.container,
-      { backgroundColor: isHappy ? "#d4f8d4" : "#f8d4d4" }
+      // Alteração das cores: Cinza para triste, Amarelo/Dourado para feliz
+      { backgroundColor: isHappy ? "#FFD700" : "#A9A9A9" } 
     ]}>
- 
+
       <StatusBar style="auto" />
  
       <TouchableOpacity onPress={handleMood}>
