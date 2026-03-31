@@ -1,14 +1,19 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-    secButton: {
-        paddingVertical: 10,
-        backgroundColor: '#0793cf',
-        marginVertical: 15,
+    texto: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color: '#fff'
+    },
+    button: {
+        width: '80%',
         borderWidth: 2,
-        borderColor: '#e40000',
+        borderColor: '#00afef',
         borderRadius: 5,
-        alignItems: 'center',
-        justifyContent: 'center'
+        marginBottom: 25,
+        paddingVertical: 8,
+        backgroundColor: '#007ab3',
     }
 })
