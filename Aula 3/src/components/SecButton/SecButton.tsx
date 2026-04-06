@@ -1,45 +1,47 @@
-import React, {useState} from "react";
-import { View, Button, Text, Pressable } from "react-native";
+
+import React, { useState } from "react";
+import { View, Text, Pressable, TextInput } from "react-native";
 import * as Clipboard from 'expo-clipboard';
-import { styles } from "./SecButtonStyles";
+import { styles } from "./SecButtonStyles"; 
 import { InputPassword } from "../InputPassword/InputPassword";
 import { passwordService } from "../../services/PasswordService";
 
-
-
-export function SecButton(){
-    const [ pass, setPass ] = useState('')
-    const [pressed, isPressed] = useState(false)
-
-    function copyPassword() {
-        Clipboard.setStringAsync(pass);
-    };
+export function SecButton() {
+    const [pass, setPass] = useState('');
+    const [passwordLength, setPasswordLength] = useState('8');
 
     function handlePassword() {
-        let token = passwordService()
-        setPass(token)
-        isPressed(!pressed)
+        const length = parseInt(passwordLength) || 8;
+        setPass(passwordService(length));
     }
 
-    return(
+    return (
         <>
-            {/*<Button
-                title="GERAR SENHA 🙊"
-                onPress={Pressionar}
-            />*/}
+            <View style={{ marginBottom: 15, alignItems: 'center' }}>
+                <Text style={{ color: '#E5BF3C', fontWeight: 'bold' }}>LARGURA:</Text>
+                <TextInput
+                    style={{ backgroundColor: '#fff', width: 50, textAlign: 'center', borderRadius: 5 }}
+                    keyboardType="numeric"
+                    value={passwordLength}
+                    onChangeText={setPasswordLength}
+                />
+            </View>
 
-            <InputPassword pass={pass}/>
-            
+            <InputPassword pass={pass} />
 
-            <Pressable style={styles.button}>
-                <Text style={styles.texto} onPress={handlePassword}>GERAR SENHA 🙊</Text>
+            <Pressable 
+                onPress={handlePassword}
+                style={({ pressed }) => [styles.button, { backgroundColor: pressed ? '#D9A300' : '#E5BF3C' }]}
+            >
+                <Text style={styles.texto}>GERAR SENHA 🙊</Text>
             </Pressable>
 
-            <Pressable style={styles.button} >
-                <Text style={styles.texto} onPress={copyPassword}>COPIAR 🗒️</Text>
+            <Pressable 
+                onPress={() => Clipboard.setStringAsync(pass)}
+                style={({ pressed }) => [styles.button, { backgroundColor: pressed ? '#333' : '#000', marginTop: 10 }]}
+            >
+                <Text style={styles.texto}>COPIAR 🗒️</Text>
             </Pressable>
         </>
-
-
-    )
+    );
 }
